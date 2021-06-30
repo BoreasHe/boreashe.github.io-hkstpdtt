@@ -1,11 +1,12 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 import { DiscoverPage } from "../pages/DiscoverPage"
 import { OverviewPage } from "../pages/OverviewPage"
+import { PlaceholderPage } from "../pages/PlaceholderPage"
 import { VerticalNavBar } from "./VerticalNavBar"
 
 export const SiteRouter = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={"hkstpdtt"}>
             <div style={{ display: "flex", width: "100%", height: "100%" }}>
                 <VerticalNavBar />
                 <Switch>
@@ -18,11 +19,15 @@ export const SiteRouter = () => {
                     </Route>
 
                     <Route exact path="/carpark">
-                        <DiscoverPage />
+                        <PlaceholderPage />
                     </Route>
 
                     <Route exact path="/forecast">
-                        <DiscoverPage />
+                        <PlaceholderPage />
+                    </Route>
+
+                    <Route exact path="/about">
+                        <PlaceholderPage />
                     </Route>
 
                     <Redirect from="/" to="/discover" />

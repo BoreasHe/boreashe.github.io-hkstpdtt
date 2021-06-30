@@ -14,6 +14,10 @@ export const NavBarContextProvider = (props) => {
         setConfig(prev => { return { ...prev, overviewMarker: on }; });
     };
 
+    const setOverviewMissing = (on) => {
+        setConfig(prev => { return { ...prev, overviewMissing: on }; });
+    };
+
     const setOverviewTraffic = (on) => {
         setConfig(prev => { return { ...prev, overviewTraffic: on }; });
     };
@@ -23,7 +27,9 @@ export const NavBarContextProvider = (props) => {
         setPage: setPage,
         overviewMarker: true,
         setOverviewMarker: setOverviewMarker,
-        overviewTraffic: true,
+        overviewMissing: false,
+        setOverviewMissing: setOverviewMissing,
+        overviewTraffic: false,
         setOverviewTraffic: setOverviewTraffic,
     };
 

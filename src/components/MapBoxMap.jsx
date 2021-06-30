@@ -1,4 +1,6 @@
 import { LocationOnTwoTone } from "@material-ui/icons";
+import { differenceInMinutes, parse } from "date-fns";
+import mapboxgl from "mapbox-gl";
 import { useContext, useEffect, useState } from "react";
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { DataContext } from "../context/DataContext";
@@ -6,9 +8,11 @@ import { NavBarContext } from "../context/NavBarContext";
 import { getColorAt } from "./../helper/color";
 import { basicInfo } from "./../res/basicInfo";
 
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default; // eslint-disable-line
+
 export const MapBoxMap = () => {
 
-    const { overviewMarker, overviewTraffic } = useContext(NavBarContext);
+    const { overviewMarker, overviewTraffic, overviewMissing } = useContext(NavBarContext);
     const { updatedVacancy } = useContext(DataContext);
 
     const [markerList, setMarkerList] = useState();
@@ -79,7 +83,13 @@ export const MapBoxMap = () => {
                                 onMouseEnter={() => openPopUp(marker.id)}
                                 onMouseLeave={() => openPopUp(undefined)}
                                 style={{
-                                    display: overviewMarker ? "initial" : "none",
+                                    display: overviewMarker
+                                        ? (
+                                            !overviewMissing && paVacancy[marker.id].vacancy === -1
+                                                ? "none"
+                                                : "initial"
+                                        )
+                                        : "none",
                                     width: 36,
                                     height: 36,
                                     color: getColorAt(Math.floor(paVacancy[marker.id].vacancy / 50 * 10))
@@ -106,6 +116,17 @@ const CarparkTooltip = (props) => {
 
     const { marker, detail, closeTooltip } = props;
 
+    const [timeDifference, setTimeDifference] = useState()
+
+    useEffect(() => {
+        if (detail.lastupdate) {
+            const updatedTime = parse(detail.lastupdate, "yyyy-MM-dd HH:mm:ss", new Date());
+            const diff = differenceInMinutes(new Date(), updatedTime);
+            const diffString = `(${diff} min${diff !== 1 ? "s" : ""} ago)`
+            setTimeDifference(diffString);
+        }
+    }, [])
+
     return (
         <Popup
             latitude={marker.latitude}
@@ -113,10 +134,10 @@ const CarparkTooltip = (props) => {
             onClose={closeTooltip}
             closeButton={false}
             closeOnClick={false}
-            offsetTop={-30}
+            offsetLeft={17.5}
         >
             <div style={{ margin: 10, color: "#2C292D", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ fontSize: 20, fontWeight: "bold", fontFamily: "AdobeClean", width: 150 }}>
+                <div style={{ fontSize: 20, fontWeight: "bold", fontFamily: "AdobeClean", width: 150, margin: "0 auto" }}>
                     {marker.name}
                 </div>
 
@@ -129,7 +150,7 @@ const CarparkTooltip = (props) => {
                 </div>
 
                 <div style={{ fontSize: 12, color: "#939293", fontFamily: "AdobeClean" }}>
-                    Last Update: {detail.lastupdate}
+                    Last Update: {`${detail.lastupdate} ${timeDifference ?? ""}`}
                 </div>
             </div>
         </Popup>

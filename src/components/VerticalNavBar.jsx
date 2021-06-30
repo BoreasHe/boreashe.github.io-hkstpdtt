@@ -1,9 +1,10 @@
 import { ListItemIcon, MenuItem, MenuList, Typography } from '@material-ui/core';
-import { DriveEta, Explore, Map, Visibility } from '@material-ui/icons';
+import { DriveEta, Explore, ImportContacts, Map, Visibility } from '@material-ui/icons';
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { NavBarContext } from '../context/NavBarContext';
 import Logo from "./../images/logo.png";
+import { Footer } from "./Footer";
 import { OverviewSideMenu } from './OverviewSideMenu';
 
 const menuItemConfig = [
@@ -27,6 +28,11 @@ const menuItemConfig = [
         title: "Forecast",
         route: "/forecast"
     },
+    {
+        icon: ImportContacts,
+        title: "About",
+        route: "/about"
+    }
 ]
 
 export const VerticalNavBar = () => {
@@ -38,26 +44,30 @@ export const VerticalNavBar = () => {
     }
 
     return (
-        <div style={{ minWidth: 225, maxWidth: 225, margin: "20px 10px 10px 40px" }}>
-            <div style={{ margin: "30px 50px" }}>
-                <img src={Logo} alt="" style={{ width: "100%", height: "100%" }} />
+        <div style={{ minWidth: 225, maxWidth: 225, margin: "20px 10px 40px 40px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div>
+                <div style={{ margin: "30px 50px" }}>
+                    <img src={Logo} alt="" style={{ width: "100%", height: "100%" }} />
+                </div>
+
+                <MenuList style={{ backgroundColor: "#332E34", borderRadius: 20 }}>
+                    {
+                        menuItemConfig.map(config => (
+                            <VerticalNavBarItem
+                                title={config.title}
+                                icon={config.icon}
+                                route={config.route}
+                                active={page === config.title}
+                                onChangePage={() => handleChangePage(config.title)}
+                            />
+                        ))
+                    }
+                </MenuList>
+
+                <OverviewSideMenu open={page === "Overview"} />
             </div>
 
-            <MenuList style={{ backgroundColor: "#332E34", borderRadius: 20 }}>
-                {
-                    menuItemConfig.map(config => (
-                        <VerticalNavBarItem
-                            title={config.title}
-                            icon={config.icon}
-                            route={config.route}
-                            active={page === config.title}
-                            onChangePage={() => handleChangePage(config.title)}
-                        />
-                    ))
-                }
-            </MenuList>
-
-            <OverviewSideMenu open={page === "Overview"} />
+            <Footer />
         </div>
     );
 }

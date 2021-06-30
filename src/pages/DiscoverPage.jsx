@@ -1,7 +1,7 @@
-import { LoadingPanel } from "./../components/LoadingPanel";
+import { DistrictDistCard } from "./../components/DistrictDistCard"
 
 export const DiscoverPage = () => (
-    <div style={{ margin: 40, width: "100%", borderRadius: 25, overflow: "hidden" }}>
-        <LoadingPanel open />
+    <div style={{ margin: 40, width: "100%", overflow: "hidden" }}>
+        <DistrictDistCard />
     </div>
 );

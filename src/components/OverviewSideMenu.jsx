@@ -1,5 +1,5 @@
 import { ListItemIcon, MenuItem, MenuList, Typography } from "@material-ui/core"
-import { PinDrop, Traffic } from "@material-ui/icons"
+import { NotListedLocation, PinDrop, Traffic } from "@material-ui/icons"
 import { AnimatePresence, motion } from "framer-motion"
 import { useContext } from "react"
 import { NavBarContext } from "../context/NavBarContext"
@@ -8,7 +8,7 @@ export const OverviewSideMenu = (props) => {
 
     const { open } = props
 
-    const { overviewMarker, setOverviewMarker, overviewTraffic, setOverviewTraffic } = useContext(NavBarContext);
+    const { overviewMarker, setOverviewMarker, overviewTraffic, setOverviewTraffic, overviewMissing, setOverviewMissing } = useContext(NavBarContext);
 
     const menuItemConfig = [
         {
@@ -16,6 +16,12 @@ export const OverviewSideMenu = (props) => {
             icon: PinDrop,
             active: () => overviewMarker,
             func: () => setOverviewMarker(!overviewMarker)
+        },
+        {
+            title: "Missing Data",
+            icon: NotListedLocation,
+            active: () => overviewMissing,
+            func: () => setOverviewMissing(!overviewMissing)
         },
         {
             title: "Road Traffic",
