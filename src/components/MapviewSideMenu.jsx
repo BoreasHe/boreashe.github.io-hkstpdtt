@@ -4,30 +4,30 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useContext } from "react"
 import { NavBarContext } from "../context/NavBarContext"
 
-export const OverviewSideMenu = (props) => {
+export const MapviewSideMenu = (props) => {
 
     const { open } = props
 
-    const { overviewMarker, setOverviewMarker, overviewTraffic, setOverviewTraffic, overviewMissing, setOverviewMissing } = useContext(NavBarContext);
+    const { mapviewMarker, setMapviewMarker, mapviewTraffic, setMapviewTraffic, mapviewMissing, setMapviewMissing } = useContext(NavBarContext);
 
     const menuItemConfig = [
         {
             title: "Carpark Pin",
             icon: PinDrop,
-            active: () => overviewMarker,
-            func: () => setOverviewMarker(!overviewMarker)
+            active: () => mapviewMarker,
+            func: () => setMapviewMarker(!mapviewMarker)
         },
         {
             title: "Missing Data",
             icon: NotListedLocation,
-            active: () => overviewMissing,
-            func: () => setOverviewMissing(!overviewMissing)
+            active: () => mapviewMissing,
+            func: () => setMapviewMissing(!mapviewMissing)
         },
         {
             title: "Road Traffic",
             icon: Traffic,
-            active: () => overviewTraffic,
-            func: () => setOverviewTraffic(!overviewTraffic)
+            active: () => mapviewTraffic,
+            func: () => setMapviewTraffic(!mapviewTraffic)
         },
     ]
 
@@ -37,7 +37,7 @@ export const OverviewSideMenu = (props) => {
                 open &&
 
                 <motion.div
-                    key={`overview-side-menu`}
+                    key={`mapview-side-menu`}
                     style={{ marginTop: 20 }}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}

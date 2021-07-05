@@ -23,7 +23,6 @@ export const JsonDataPage = () => {
             "data": timeArray.map(timestamp => { return { x: timestamp[0] + timestamp[1], y: data[timestamp[0] + timestamp[1]] ?? 0 }; })
         }];
 
-        console.log(template);
         setChartData(template);
     }, [data]);
 
@@ -35,7 +34,6 @@ export const JsonDataPage = () => {
             const dataJson = await getCarParkData("2021", "06", "16", timestamp[0], timestamp[1]);
 
             const tdc1p1Data = dataJson["car_park"].find(carpark => carpark["park_id"] === "tdc1p1");
-            console.log(tdc1p1Data);
             try {
                 const vacancy = tdc1p1Data["vehicle_type"].find(ty => ty.type === "P")["service_category"].find(ty => ty.vacancy_type === "A").vacancy;
                 setData(prev => { return { ...prev, [`${timestamp[0]}${timestamp[1]}`]: vacancy }; });

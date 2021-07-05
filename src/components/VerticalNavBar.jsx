@@ -1,11 +1,11 @@
 import { ListItemIcon, MenuItem, MenuList, Typography } from '@material-ui/core';
-import { DriveEta, Explore, ImportContacts, Map, Visibility } from '@material-ui/icons';
+import { DriveEta, Explore, ImportContacts, Map, Search, Visibility } from '@material-ui/icons';
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { NavBarContext } from '../context/NavBarContext';
 import Logo from "./../images/logo.png";
 import { Footer } from "./Footer";
-import { OverviewSideMenu } from './OverviewSideMenu';
+import { MapviewSideMenu } from './MapviewSideMenu';
 
 const menuItemConfig = [
     {
@@ -15,13 +15,8 @@ const menuItemConfig = [
     },
     {
         icon: Map,
-        title: "Overview",
-        route: "/overview",
-    },
-    {
-        icon: DriveEta,
-        title: "Carpark",
-        route: "/carpark"
+        title: "Mapview",
+        route: "/mapview",
     },
     {
         icon: Visibility,
@@ -54,17 +49,18 @@ export const VerticalNavBar = () => {
                     {
                         menuItemConfig.map(config => (
                             <VerticalNavBarItem
+                                key={`nav-${config.title}`}
                                 title={config.title}
                                 icon={config.icon}
                                 route={config.route}
-                                active={page === config.title}
-                                onChangePage={() => handleChangePage(config.title)}
+                                active={page === config.route}
+                                onChangePage={() => handleChangePage(config.route)}
                             />
                         ))
                     }
                 </MenuList>
 
-                <OverviewSideMenu open={page === "Overview"} />
+                <MapviewSideMenu open={page === "/mapview"} />
             </div>
 
             <Footer />

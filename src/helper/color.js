@@ -8,3 +8,7 @@ export const getColorAt = (num) => {
 
     return interpolatedColors[num];
 }
+
+export const getSpectralColor = (num) => {
+    return chroma.scale("Spectral").colors(num)
+}

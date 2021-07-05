@@ -4,6 +4,10 @@ import './App.css';
 import { SiteRouter } from './components/SiteRouter';
 import { DataContextProvider } from './context/DataContext';
 import { NavBarContextProvider } from './context/NavBarContext';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+
+// pick a date util library
+import DateFnsUtils from '@date-io/date-fns';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +26,52 @@ const theme = createMuiTheme({
     h6: {
       fontWeight: 700
     }
+  },
+  overrides: {
+    MuiSelect: {
+      root: {
+
+      },
+      select: {
+        borderRadius: 10
+      },
+      icon: {
+        color: "#A497A7"
+      }
+    },
+    MuiInput: {
+      underline: {
+        "&&&:before": {
+          borderBottom: "none"
+        },
+      }
+    },
+    MuiInputLabel: {
+      root: {
+        color: "#A497A7"
+      }
+    },
+    MuiInputBase: {
+      input: {
+        color: "#A497A7"
+      }
+    },
+    MuiList: {
+      root: {
+        backgroundColor: "#59525B",
+        color: "#F0F9F3"
+      }
+    },
+    MuiListSubheader: {
+      root: {
+        color: "#A194A3"
+      }
+    },
+    MuiDivider: {
+      root: {
+        margin: "none"
+      }
+    }
   }
 });
 
@@ -33,9 +83,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <DataContextProvider>
-            <NavBarContextProvider>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <SiteRouter />
-            </NavBarContextProvider>
+            </MuiPickersUtilsProvider>
           </DataContextProvider>
         </QueryClientProvider>
       </ThemeProvider>

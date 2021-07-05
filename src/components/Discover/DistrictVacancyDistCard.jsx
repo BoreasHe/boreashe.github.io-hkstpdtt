@@ -1,10 +1,12 @@
 import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../context/DataContext";
-import { basicInfo } from "../res/basicInfo";
-import { DashboardCard } from "./DashboardCard";
+import { DataContext } from "../../context/DataContext";
+import { getSpectralColor } from "../../helper/color";
+import { basicInfo } from "../../res/basicInfo";
+import { DashboardCard } from "../DashboardCard";
+import { districts } from "../../res/district"
 
-export const DistrictDistCard = () => {
+export const DistrictVacancyDistCard = () => {
     const { updatedVacancy } = useContext(DataContext);
     const [chartData, setChartData] = useState();
     const [loading, setLoading] = useState(true);
@@ -27,7 +29,6 @@ export const DistrictDistCard = () => {
                 return buffer;
             }, {})
 
-        console.log(aggregation);
         setChartData(aggregation);
     }
 
@@ -74,29 +75,10 @@ const SwarmPlot = (props) => {
                     },
                 },
             }}
-            colors={{ "scheme": "spectral" }}
+            colors={getSpectralColor(18)}
+            colorBy="group"
             data={data}
-            groups={
-                [
-                    "Kwun Tong",
-                    "Sha Tin",
-                    "Wong Tai Sin",
-                    "Sai Kung",
-                    "Yuen Long",
-                    "Eastern",
-                    "Tuen Mun",
-                    "Kwai Tsing",
-                    "Islands",
-                    "North",
-                    "Southern",
-                    "Tai Po",
-                    "Yau Tsim Mong",
-                    "Sham Shui Po",
-                    "Wan Chai",
-                    "Tsuen Wan",
-                    "Kowloon City",
-                    "Central & Western"
-                ]}
+            groups={districts}
             identity="name"
             value="vacancy"
             valueScale={{ type: 'linear', min: 0, max: 500, reverse: false }}

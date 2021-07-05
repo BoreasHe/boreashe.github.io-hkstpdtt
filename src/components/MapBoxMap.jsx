@@ -12,7 +12,7 @@ mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 export const MapBoxMap = () => {
 
-    const { overviewMarker, overviewTraffic, overviewMissing } = useContext(NavBarContext);
+    const { mapviewMarker, mapviewTraffic, mapviewMissing } = useContext(NavBarContext);
     const { updatedVacancy } = useContext(DataContext);
 
     const [markerList, setMarkerList] = useState();
@@ -48,9 +48,10 @@ export const MapBoxMap = () => {
 
     const mapPaVacancy = (data) => {
         const aggregation = data.car_park.reduce((buffer, carpark) => {
+            const entry = carpark["vehicle_type"].find(vt => vt.type === "P")?.["service_category"]?.find(sc => sc.vacancy_type === "A");
             buffer[carpark.park_id] = {
-                "vacancy": carpark["vehicle_type"].find(vt => vt.type === "P")?.["service_category"]?.find(sc => sc.vacancy_type === "A")?.vacancy ?? -1,
-                "lastupdate": carpark["vehicle_type"].find(vt => vt.type === "P")?.["service_category"]?.find(sc => sc.vacancy_type === "A")?.lastupdate ?? "-"
+                "vacancy": entry?.vacancy ?? -1,
+                "lastupdate": entry?.lastupdate ?? "-"
             }
             return buffer;
         }, {})
@@ -68,7 +69,7 @@ export const MapBoxMap = () => {
                 borderRadius={25}
                 width="100%"
                 height="100%"
-                mapStyle={overviewTraffic ? "mapbox://styles/mapbox/navigation-night-v1" : "mapbox://styles/mapbox/dark-v10"}
+                mapStyle={mapviewTraffic ? "mapbox://styles/mapbox/navigation-night-v1" : "mapbox://styles/mapbox/dark-v10"}
                 mapboxApiAccessToken="pk.eyJ1IjoiYm9yZWFzaGUiLCJhIjoiY2txZ2MxdHBoMDJxcTJwcm85NTM0MWI1bCJ9.AHoFkmdAIq-SFTf7mGwzoA"
                 {...viewport}
                 onViewportChange={nextViewport => setViewport(nextViewport)}
@@ -83,9 +84,9 @@ export const MapBoxMap = () => {
                                 onMouseEnter={() => openPopUp(marker.id)}
                                 onMouseLeave={() => openPopUp(undefined)}
                                 style={{
-                                    display: overviewMarker
+                                    display: mapviewMarker
                                         ? (
-                                            !overviewMissing && paVacancy[marker.id].vacancy === -1
+                                            !mapviewMissing && paVacancy[marker.id].vacancy === -1
                                                 ? "none"
                                                 : "initial"
                                         )
@@ -137,7 +138,7 @@ const CarparkTooltip = (props) => {
             offsetLeft={17.5}
         >
             <div style={{ margin: 10, color: "#2C292D", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ fontSize: 20, fontWeight: "bold", fontFamily: "AdobeClean", width: 150, margin: "0 auto" }}>
+                <div style={{ fontSize: 20, fontWeight: "bold", fontFamily: "AdobeClean", width: 175, margin: "0 auto" }}>
                     {marker.name}
                 </div>
 
