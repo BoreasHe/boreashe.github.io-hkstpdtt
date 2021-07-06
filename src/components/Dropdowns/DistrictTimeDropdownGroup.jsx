@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { DistrictDropdown } from "./DistrictDropdown"
-import { TimeDropdown } from "./TimeDropdown"
+import { useEffect, useState } from "react";
+import { DistrictDropdown } from "./DistrictDropdown";
+import { TimeDropdown } from "./TimeDropdown";
 
 export const DistrictTimeDropdownGroup = ({ onChange }) => {
 
@@ -23,12 +22,14 @@ export const DistrictTimeDropdownGroup = ({ onChange }) => {
     }, [district, selectedTime])
 
     return (
-        <div style={{ display: "flex" }}>
-            <div style={{ marginRight: 20 }}>
-                <DistrictDropdown onChange={handleDistrictChange} />
-            </div>
-            <div>
-                <TimeDropdown district={district} onChange={handleTimeChange} />
+        <div style={{ backgroundColor: "#383439", borderRadius: 10, width: "max-content" }}>
+            <div style={{ padding: "10px 20px", display: "flex" }}>
+                <div style={{ marginRight: 20 }}>
+                    <DistrictDropdown onChange={handleDistrictChange} />
+                </div>
+                <div>
+                    <TimeDropdown district={district} onChange={handleTimeChange} />
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { CarparkByDistrictDropdown } from "./CarparkByDistrictDropdown";
-import { DistrictDropdown } from "./DistrictDropdown"
+import { DistrictDropdown } from "./DistrictDropdown";
 
 export const DistrictCarparkDropdownGroup = ({ onChange }) => {
 
@@ -22,12 +21,14 @@ export const DistrictCarparkDropdownGroup = ({ onChange }) => {
     }
 
     return (
-        <div style={{ display: "flex" }}>
-            <div style={{ marginRight: 20 }}>
-                <DistrictDropdown onChange={handleDistrictChange} />
-            </div>
-            <div>
-                <CarparkByDistrictDropdown district={district} onChange={handleCarparkChange} />
+        <div style={{ backgroundColor: "#383439", borderRadius: 10, width: "max-content" }}>
+            <div style={{ padding: "10px 20px", display: "flex" }}>
+                <div style={{ marginRight: 20 }}>
+                    <DistrictDropdown onChange={handleDistrictChange} />
+                </div>
+                <div>
+                    <CarparkByDistrictDropdown district={district} onChange={handleCarparkChange} />
+                </div>
             </div>
         </div>
     )

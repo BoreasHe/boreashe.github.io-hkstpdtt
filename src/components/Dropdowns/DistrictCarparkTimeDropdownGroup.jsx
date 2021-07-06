@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CarparkByDistrictDropdown } from "./CarparkByDistrictDropdown";
-import { DistrictDropdown } from "./DistrictDropdown"
-import { TimeDropdown } from "./TimeDropdown"
+import { DistrictDropdown } from "./DistrictDropdown";
+import { TimeDropdown } from "./TimeDropdown";
 
 export const DistrictCarparkTimeDropdownGroup = ({ onChange }) => {
 
@@ -31,15 +30,17 @@ export const DistrictCarparkTimeDropdownGroup = ({ onChange }) => {
     }, [selectedCarpark, selectedTime])
 
     return (
-        <div style={{ display: "flex" }}>
-            <div style={{ marginRight: 20 }}>
-                <DistrictDropdown onChange={handleDistrictChange} />
-            </div>
-            <div style={{ marginRight: 20 }}>
-                <CarparkByDistrictDropdown district={district} onChange={handleCarparkChange} />
-            </div>
-            <div>
-                <TimeDropdown district={district} onChange={handleTimeChange} />
+        <div style={{ backgroundColor: "#383439", borderRadius: 10, width: "max-content" }}>
+            <div style={{ padding: "10px 20px", display: "flex" }}>
+                <div style={{ marginRight: 20 }}>
+                    <DistrictDropdown onChange={handleDistrictChange} />
+                </div>
+                <div style={{ marginRight: 20 }}>
+                    <CarparkByDistrictDropdown district={district} onChange={handleCarparkChange} />
+                </div>
+                <div>
+                    <TimeDropdown district={district} onChange={handleTimeChange} />
+                </div>
             </div>
         </div>
     )

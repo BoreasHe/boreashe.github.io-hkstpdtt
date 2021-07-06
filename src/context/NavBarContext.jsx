@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { createContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { createContext, useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const NavBarContext = createContext();
 
 export const NavBarContextProvider = (props) => {
 
     const location = useLocation();
+    const history = useHistory();
 
     const { children } = props;
 
@@ -42,6 +42,10 @@ export const NavBarContextProvider = (props) => {
     };
 
     const [config, setConfig] = useState(initNavBarConfig);
+
+    useEffect(() => {
+        history.push(config.page);
+    }, [config.page])
 
     return (
         <NavBarContext.Provider value={config}>

@@ -1,10 +1,6 @@
-import { FormControl, InputLabel, ListSubheader, MenuItem, Select } from "@material-ui/core"
-import { timeInterval } from "../../res/basicInfo"
+import { FormControl } from "@material-ui/core";
 import {
-    DatePicker,
-    TimePicker,
-    DateTimePicker,
-    MuiPickersUtilsProvider,
+    DateTimePicker
 } from '@material-ui/pickers';
 import { useState } from "react";
 
@@ -18,7 +14,7 @@ export const TimeDropdown = ({ onChange }) => {
     }
 
     return (
-        <FormControl style={{ width: 200 }}>
+        <FormControl style={{ width: 150 }}>
             <DateTimePicker label="Time" value={time} onChange={handleChange} />
         </FormControl>
     )

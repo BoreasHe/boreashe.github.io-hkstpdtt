@@ -1,13 +1,12 @@
 import { ListItemIcon, MenuItem, MenuList, Typography } from '@material-ui/core';
-import { DriveEta, Explore, ImportContacts, Map, Search, Visibility } from '@material-ui/icons';
+import { Explore, ImportContacts, Map, Visibility } from '@material-ui/icons';
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
 import { NavBarContext } from '../context/NavBarContext';
 import Logo from "./../images/logo.png";
 import { Footer } from "./Footer";
 import { MapviewSideMenu } from './MapviewSideMenu';
 
-const menuItemConfig = [
+export const menuItemConfig = [
     {
         icon: Explore,
         title: "Discover",
@@ -74,7 +73,7 @@ const VerticalNavBarItem = (props) => {
     const IconComp = icon;
 
     return (
-        <Link to={route} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div style={{ textDecoration: 'none', color: 'inherit' }}>
             <MenuItem style={{ borderRadius: 12, margin: "6px 10px" }} onClick={() => onChangePage(route)}>
                 <ListItemIcon >
                     <IconComp style={{ color: active ? "#F0F9F3" : "#766E79", width: 31, height: 31, paddingLeft: 5 }} />
@@ -83,6 +82,6 @@ const VerticalNavBarItem = (props) => {
                     {title}
                 </Typography>
             </MenuItem>
-        </Link>
+        </div>
     );
 }

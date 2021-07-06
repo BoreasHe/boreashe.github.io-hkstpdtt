@@ -1,7 +1,7 @@
-import { PiePlot } from "./../PiePlot"
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { DashboardCard } from "../DashboardCard";
+import { PiePlot } from "./../PiePlot";
 
 export const TotalCarparkAmountCard = () => {
     const { updatedVacancy } = useContext(DataContext);
@@ -42,7 +42,7 @@ export const TotalCarparkAmountCard = () => {
 
     return (
         <DashboardCard title="Listed Carpark By Enquirability" subtitle="Amount of carparks that can be enquired by the API" loading={loading}>
-            <div style={{ height: 300, position: "relative" }}>
+            <div style={{ height: 300, width: "100%", position: "relative" }}>
                 {
                     chartData && <PiePlot data={chartData} totalAmount={totalAmount} onFinishRender={() => setLoading(false)} />
                 }
