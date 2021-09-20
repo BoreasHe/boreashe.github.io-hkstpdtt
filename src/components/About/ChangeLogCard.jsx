@@ -45,6 +45,14 @@ const changelogs = [
             "💄 Update some grid layouts",
             "💄 Adjusting some colors"
         ]
+    },
+    {
+        date: "20 Sep",
+        version: "1.2.1",
+        codename: "",
+        logs: [
+            "🐛 Update basic info of car parks",
+        ]
     }
 ]
 

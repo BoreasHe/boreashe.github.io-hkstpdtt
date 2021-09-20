@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { getSpectralColor } from "../../helper/color";
 import { basicInfo } from "../../res/basicInfo";
+import { districts } from "../../res/district";
 import { DashboardCard } from "../DashboardCard";
-import { districts } from "../../res/district"
 
 export const DistrictVacancyDistCard = () => {
     const { updatedVacancy } = useContext(DataContext);
